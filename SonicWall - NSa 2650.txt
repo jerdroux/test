@@ -1,0 +1,2930 @@
+#sonic
+zone KGPS
+    security-type trusted
+    interface-trust
+    auto-generate-access-rules allow-from-to-equal
+    auto-generate-access-rules allow-from-higher
+    auto-generate-access-rules allow-to-lower
+    auto-generate-access-rules deny-from-lower
+    no content-filtering
+    no client-anti-virus
+    no gateway-anti-virus
+    no intrusion-prevention
+    no app-control
+    no anti-spyware
+    no create-group-vpn
+    no ssl-control
+    no sslvpn-access
+    no guest-services
+    exit
+
+interface X0
+    ip-assignment LAN static
+        ip 192.168.0.100 netmask 255.255.255.0
+        gateway 0.0.0.0
+        exit
+    comment "Default%20LAN"
+    management http
+    management https
+    no user-login http
+    no user-login https
+    no https-redirect
+    management ping
+    management ssh
+    management snmp
+    mac default
+    no multicast
+    no routed-mode
+    exit
+
+interface X1
+    ip-assignment WAN static
+        ip 46.140.41.178 netmask 255.255.255.248
+        dns primary 8.8.8.8
+        dns secondary 0.0.0.0
+        dns tertiary 0.0.0.0
+        gateway 46.140.41.177
+        exit
+    comment "Default%20WAN"
+    no management http
+    management https
+    no user-login http
+    no user-login https
+    no https-redirect
+    management ping
+    no management ssh
+    management snmp
+    mac default
+    no multicast
+    mtu 1500
+    fragment-packets
+    no ignore-df-bit
+    no send-icmp-fragmentation
+    exit
+
+interface X2
+    ip-assignment KGPS static
+        ip 192.168.190.129 netmask 255.255.255.192
+        gateway 0.0.0.0
+        exit
+    no comment
+    no management http
+    management https
+    no user-login http
+    user-login https
+    https-redirect
+    management ping
+    management ssh
+    no management snmp
+    mac default
+    no multicast
+    no routed-mode
+    exit
+
+interface X3
+    ip-assignment  static
+        ip 0.0.0.0 netmask 0.0.0.0
+        no gateway
+        exit
+    no comment
+    no management http
+    no management https
+    no user-login http
+    no user-login https
+    https-redirect
+    no management ping
+    no management ssh
+    no management snmp
+    mac default
+    no multicast
+    no routed-mode
+    exit
+
+interface X4
+    ip-assignment  static
+        ip 0.0.0.0 netmask 0.0.0.0
+        no gateway
+        exit
+    no comment
+    no management http
+    no management https
+    no user-login http
+    no user-login https
+    https-redirect
+    no management ping
+    no management ssh
+    no management snmp
+    mac default
+    no multicast
+    no routed-mode
+    exit
+
+interface X5
+    ip-assignment  static
+        ip 0.0.0.0 netmask 0.0.0.0
+        no gateway
+        exit
+    no comment
+    no management http
+    no management https
+    no user-login http
+    no user-login https
+    https-redirect
+    no management ping
+    no management ssh
+    no management snmp
+    mac default
+    no multicast
+    no routed-mode
+    exit
+
+
+
+
+
+
+
+
+
+
+
+address-object ipv4 "LAN Primary IP" host 192.168.0.100 zone LAN
+
+address-object ipv4 "LAN Primary Subnet" network 192.168.0.0 255.255.255.0 zone LAN
+
+address-object ipv4 "WAN Primary IP" host 46.140.41.178 zone WAN
+
+address-object ipv4 "WAN Primary Subnet" network 46.140.41.176 255.255.255.248 zone WAN
+
+address-object ipv4 "X2 IP" host 192.168.190.129 zone KGPS
+
+address-object ipv4 "X2 Subnet" network 192.168.190.128 255.255.255.192 zone KGPS
+
+address-object ipv4 "X3 IP" host 0.0.0.0 zone 
+
+address-object ipv4 "X3 Subnet" network 0.0.0.0 255.255.255.255 zone 
+
+
+
+
+address-object ipv4 "Default Gateway" host 62.2.97.89 zone WAN
+
+address-object ipv4 "Secondary Default Gateway" host 0.0.0.0 zone WAN
+
+
+
+
+
+
+
+
+address-object ipv4 "WLAN RemoteAccess Networks" network 0.0.0.0 0.0.0.0 zone VPN
+
+address-object ipv4 "WAN RemoteAccess Networks" network 0.0.0.0 0.0.0.0 zone VPN
+
+
+
+address-object ipv4 oskserver host 192.168.0.2 zone LAN
+
+address-object ipv4 "osk srv01 Private" host 192.168.0.5 zone LAN
+
+address-object ipv4 "oskfileserver timbuktu Private" host 192.168.0.3 zone LAN
+
+address-object ipv4 "oskserver Private" host 192.168.0.3 zone LAN
+
+address-object ipv4 "osk srv01-ssh Private" host 192.168.0.5 zone LAN
+
+address-object ipv4 "oskwebserver Private" host 192.168.0.3 zone LAN
+
+
+
+address-object ipv4 "X1 Default Gateway" host 46.140.41.177 zone WAN
+
+
+address-object ipv4 "Default Active WAN IP" host 46.140.41.178 zone WAN
+
+
+
+
+
+
+
+address-object ipv4 "X4 IP" host 0.0.0.0 zone 
+
+address-object ipv4 "X4 Subnet" network 0.0.0.0 255.255.255.255 zone 
+
+address-object ipv4 "X5 IP" host 0.0.0.0 zone 
+
+address-object ipv4 "X5 Subnet" network 0.0.0.0 255.255.255.255 zone 
+
+
+
+
+address-object ipv4 WAN-FW-datacenter host 83.222.128.182 zone WAN
+
+address-object ipv4 Subnet-datacenter network 83.222.130.128 255.255.255.192 zone WAN
+
+address-object ipv4 WAN-FW-Nexan host 212.147.16.155 zone WAN
+
+address-object ipv4 "KGPS Vordere Gasse Subnet" network 192.168.191.0 255.255.255.128 zone LAN
+
+
+
+address-object ipv4 DVBern host 217.192.238.66 zone WAN
+
+address-object ipv4 tmp_sw host 192.168.0.252 zone LAN
+
+
+address-object ipv4 "KGPS DV Bern Subnet" network 192.168.190.0 255.255.255.224 zone LAN
+
+address-object ipv4 "KGPS Firewall" host 192.168.190.130 zone KGPS
+
+address-object ipv4 KGPS_InetOnly network 172.16.1.0 255.255.255.128 zone KGPS
+
+address-object ipv4 host_fortigate_wifi host 172.16.1.1 zone KGPS
+
+address-object ipv4 "L2TP IP Pool" range 192.168.0.220 192.168.0.240 zone VPN
+
+
+
+
+
+
+
+address-object ipv4 sslvpn-network network 10.66.67.0 255.255.255.0 zone SSLVPN
+
+address-object ipv4 NAS host 192.168.0.8 zone LAN
+
+address-object ipv4 Apple-server host 192.168.0.5 zone LAN
+
+
+
+address-object fqdn monitoring.nexcloud.ch domain monitoring.nexcloud.ch zone WAN
+
+address-group ipv4 "X2 Management IPv6 Addresses"
+    address-object ipv4 "X2 IPv6 Primary Static Address"
+    address-object ipv4 "X2 IPv6 Link-Local Address"
+    exit
+
+address-group ipv4 "X5 IPv6 Addresses"
+    address-object ipv4 "X5 IPv6 Link-Local Address"
+    address-object ipv4 "X5 IPv6 Primary Static Address"
+    exit
+
+address-group ipv4 "All X4 Management IP"
+    address-object ipv4 "X4 IP"
+    exit
+
+address-group ipv4 "All LAN Management IP"
+    address-object ipv4 "LAN Primary IP"
+    exit
+
+address-group ipv4 "LAN IPv6 Subnets"
+    address-object ipv4 "LAN IPv6 Primary Static Address Subnet"
+    exit
+
+address-group ipv4 "All X5 Management IP"
+    address-object ipv4 "X5 IP"
+    exit
+
+address-group ipv4 "X3 IPv6 Addresses"
+    address-object ipv4 "X3 IPv6 Link-Local Address"
+    address-object ipv4 "X3 IPv6 Primary Static Address"
+    exit
+
+address-group ipv4 "All X3 Management IP"
+    address-object ipv4 "X3 IP"
+    exit
+
+address-group ipv4 nexanfe5e39e206b9f65b419290c97
+    address-group ipv4 "Firewalled Subnets"
+    exit
+
+address-group ipv4 "X4 Management IPv6 Addresses"
+    address-object ipv4 "X4 IPv6 Link-Local Address"
+    address-object ipv4 "X4 IPv6 Primary Static Address"
+    exit
+
+address-group ipv4 "X2 IPv6 Addresses"
+    address-object ipv4 "X2 IPv6 Primary Static Address"
+    address-object ipv4 "X2 IPv6 Link-Local Address"
+    exit
+
+address-group ipv4 "LAN Management IPv6 Addresses"
+    address-object ipv4 "LAN IPv6 Link-Local Address"
+    address-object ipv4 "LAN IPv6 Primary Static Address"
+    exit
+
+address-group ipv4 "Firewalled IPv6 Subnets"
+    address-object ipv4 "DMZ IPv6 Subnets"
+    address-object ipv4 "LAN IPv6 Subnets"
+    address-object ipv4 "WLAN IPv6 Subnets"
+    exit
+
+address-group ipv4 "Default Geo-IP and Botnet Exclusion Group"
+    address-group ipv4 "Firewalled Subnets"
+    exit
+
+address-group ipv4 "WAN Interface IP"
+    address-object ipv4 "WAN Primary IP"
+    exit
+
+address-group ipv4 "Nexan mgmt"
+    address-object ipv4 monitoring.nexcloud.ch
+    address-object ipv4 Subnet-datacenter
+    address-object ipv4 WAN-FW-datacenter
+    address-object ipv4 WAN-FW-Nexan
+    exit
+
+address-group ipv4 "WAN Interface IPv6 Addresses"
+    address-object ipv4 "WAN IPv6 Primary Static Address"
+    address-object ipv4 "WAN IPv6 Link-Local Address"
+    exit
+
+address-group ipv4 "X5 Management IPv6 Addresses"
+    address-object ipv4 "X5 IPv6 Link-Local Address"
+    address-object ipv4 "X5 IPv6 Primary Static Address"
+    exit
+
+address-group ipv4 "LAN IPv6 Addresses"
+    address-object ipv4 "LAN IPv6 Link-Local Address"
+    address-object ipv4 "LAN IPv6 Primary Static Address"
+    exit
+
+address-group ipv4 "All WAN IP"
+    address-object ipv4 "WAN Primary IP"
+    exit
+
+address-group ipv4 "LAN Interface IP"
+    address-object ipv4 "LAN Primary IP"
+    exit
+
+address-group ipv4 "All X2 Management IP"
+    address-object ipv4 "X2 IP"
+    exit
+
+address-group ipv4 "X4 IPv6 Addresses"
+    address-object ipv4 "X4 IPv6 Link-Local Address"
+    address-object ipv4 "X4 IPv6 Primary Static Address"
+    exit
+
+address-group ipv4 "WAN IPv6 Addresses"
+    address-object ipv4 "WAN IPv6 Primary Static Address"
+    address-object ipv4 "WAN IPv6 Link-Local Address"
+    exit
+
+address-group ipv4 "Firewalled Subnets"
+    address-group ipv4 "KGPS Subnets"
+    address-group ipv4 "LAN Subnets"
+    address-group ipv4 "WLAN Subnets"
+    address-group ipv4 "DMZ Subnets"
+    exit
+
+address-group ipv4 "All Interface IPv6 Addresses"
+    address-object ipv4 "X2 IPv6 Primary Static Address"
+    address-object ipv4 "WAN IPv6 Primary Static Address"
+    address-object ipv4 "X3 IPv6 Link-Local Address"
+    address-object ipv4 "X5 IPv6 Link-Local Address"
+    address-object ipv4 "X3 IPv6 Primary Static Address"
+    address-object ipv4 "WAN IPv6 Link-Local Address"
+    address-object ipv4 "X5 IPv6 Primary Static Address"
+    address-object ipv4 "X4 IPv6 Link-Local Address"
+    address-object ipv4 "LAN IPv6 Link-Local Address"
+    address-object ipv4 "LAN IPv6 Primary Static Address"
+    address-object ipv4 "X2 IPv6 Link-Local Address"
+    address-object ipv4 "X4 IPv6 Primary Static Address"
+    exit
+
+address-group ipv4 "KGPS Subnets"
+    address-object ipv4 "X2 Subnet"
+    exit
+
+address-group ipv4 "KGPS Interface IP"
+    address-object ipv4 "X2 IP"
+    exit
+
+address-group ipv4 "WAN IPv6 Subnets"
+    address-object ipv4 "WAN IPv6 Primary Static Address Subnet"
+    exit
+
+address-group ipv4 "SSLVPN Services05a010b07dcf13d"
+    address-object ipv4 NAS
+    address-object ipv4 Apple-server
+    exit
+
+address-group ipv4 "LAN Interface IPv6 Addresses"
+    address-object ipv4 "LAN IPv6 Link-Local Address"
+    address-object ipv4 "LAN IPv6 Primary Static Address"
+    exit
+
+address-group ipv4 "nacDefault Device Profile for Windows"
+    address-object ipv4 "LAN Primary Subnet"
+    exit
+
+address-group ipv4 "LAN Subnets"
+    address-object ipv4 "LAN Primary Subnet"
+    exit
+
+address-group ipv4 "WAN Subnets"
+    address-object ipv4 "WAN Primary Subnet"
+    exit
+
+address-group ipv4 "All Interface IP"
+    address-object ipv4 "X5 IP"
+    address-object ipv4 "LAN Primary IP"
+    address-object ipv4 "WAN Primary IP"
+    address-object ipv4 "X4 IP"
+    address-object ipv4 "X3 IP"
+    address-object ipv4 "X2 IP"
+    exit
+
+address-group ipv4 "internal nets"
+    address-group ipv4 "KGPS Subnets"
+    address-group ipv4 "LAN Subnets"
+    exit
+
+address-group ipv4 "WAN Management IPv6 Addresses"
+    address-object ipv4 "WAN IPv6 Primary Static Address"
+    address-object ipv4 "WAN IPv6 Link-Local Address"
+    exit
+
+address-group ipv4 "X3 Management IPv6 Addresses"
+    address-object ipv4 "X3 IPv6 Link-Local Address"
+    address-object ipv4 "X3 IPv6 Primary Static Address"
+    exit
+
+address-group ipv4 "All WAN Management IP"
+    address-object ipv4 "WAN Primary IP"
+    exit
+
+service-object HTTP TCP 80 80
+
+service-object "HTTP Management" TCP 80 80
+
+service-object HTTPS TCP 443 443
+
+service-object "HTTPS Management" TCP 4443 4443
+
+service-object IDENT TCP 113 113
+
+service-object IMAP3 TCP 220 220
+
+service-object IMAP4 TCP 143 143
+
+service-object ISAKMP UDP 500 500
+
+service-object LDAP TCP 389 389
+
+service-object "LPR (Unix Printer)" TCP 515 515
+
+service-object "MS SQL" TCP 1433 1433
+
+service-object "NNTP (News)" TCP 119 119
+
+service-object NTP UDP 123 123
+
+service-object "POP3 (Retrieve E-Mail)" TCP 110 110
+
+service-object "Terminal Services TCP" TCP 3389 3389
+
+service-object "Terminal Services UDP" UDP 3389 3389
+
+service-object PPTP TCP 1723 1723
+
+service-object "SMTP (Send E-Mail)" TCP 25 25
+
+service-object SNMP UDP 161 162
+
+service-object "SQL*Net " TCP 1521 1521
+
+service-object SSH TCP 22 22
+
+service-object Telnet TCP 23 23
+
+service-object TFTP UDP 69 69
+
+service-object "Citrix TCP" TCP 1494 1494
+
+service-object "Citrix UDP" UDP 1604 1604
+
+service-object "IRC (Chat) 194" TCP 194 194
+
+service-object "IRC (Chat) 6666-6670" TCP 6666 6670
+
+service-object "IRC (Chat) 7000" TCP 7000 7000
+
+service-object "DNS (Name Service) TCP" TCP 53 53
+
+service-object "DNS (Name Service) UDP" UDP 53 53
+
+service-object "Enhanced TV" TCP 9000 9000
+
+service-object "ESP (IPSec)" ESP 1 1
+
+service-object FTP TCP 21 21
+
+service-object "FTP Data" TCP 20 20
+
+service-object "FTP Control" TCP 21 21
+
+service-object Gopher TCP 70 70
+
+service-object "IKE (Key Exchange)" UDP 500 500
+
+service-object "IKE (Traversal)" UDP 4500 4500
+
+service-object "Lotus Notes" TCP 1352 1352
+
+service-object "Echo Reply" ICMP echo-reply 
+
+service-object "Destination Unreachable" ICMP destination-unreachable 
+
+service-object "Source Quench" ICMP source-quench 
+
+service-object Redirect ICMP redirect 
+
+service-object Echo ICMP echo-request 
+
+service-object "Router Advertisement" ICMP router-advertise 
+
+service-object "Router Solicitation" ICMP router-solicit 
+
+service-object "Time Exceeded" ICMP time-exceeded 
+
+service-object "Ping 0" ICMP echo-reply 
+
+service-object "Ping 8" ICMP echo-request 
+
+service-object "Kerberos TCP" TCP 88 88
+
+service-object "Kerberos UDP" UDP 88 88
+
+service-object "NetBios NS TCP" TCP 137 137
+
+service-object "NetBios NS UDP" UDP 137 137
+
+service-object "NetBios DGM TCP" TCP 138 138
+
+service-object "NetBios DGM UDP" UDP 138 138
+
+service-object "NetBios SSN TCP" TCP 139 139
+
+service-object "NetBios SSN UDP" UDP 139 139
+
+service-object SMB TCP 445 445
+
+service-object "NFS TCP" TCP 2049 2049
+
+service-object "NFS UDP" UDP 2049 2049
+
+service-object "Syslog TCP" TCP 514 514
+
+service-object "Syslog UDP" UDP 514 514
+
+service-object "H323 Call Signaling" TCP 1720 1720
+
+service-object "H323 Gatekeeper Discovery" UDP 1718 1718
+
+service-object "H323 Gatekeeper RAS" UDP 1719 1719
+
+service-object "MGCP TCP" TCP 2428 2428
+
+service-object "MGCP UDP" UDP 2427 2427
+
+service-object SIP UDP 5060 5061
+
+service-object Skinny TCP 2000 2000
+
+service-object "T120 (Whiteboard%2bA43)" TCP 1503 1503
+
+service-object "PC Anywhere TCP" TCP 5631 5631
+
+service-object "PC Anywhere UDP" UDP 5632 5632
+
+service-object "Timbuktu TCP 407" TCP 407 407
+
+service-object "Timbuktu UDP 407" UDP 407 407
+
+service-object "Timbuktu TCP 1417-1420" TCP 1417 1420
+
+service-object "Timbuktu UDP 1419" UDP 1419 1419
+
+service-object "RTSP TCP" TCP 554 554
+
+service-object "RTSP UDP" UDP 554 554
+
+service-object PNA TCP 7070 7070
+
+service-object "MMS TCP" TCP 1755 1755
+
+service-object "MMS UDP" UDP 1755 1755
+
+service-object Squid TCP 3128 3128
+
+service-object "Yahoo Messenger TCP" TCP 5050 5050
+
+service-object "Yahoo Messenger UDP" UDP 5050 5050
+
+service-object "VNC 5500" TCP 5500 5500
+
+service-object "VNC 5800" TCP 5800 5800
+
+service-object "VNC 5900" TCP 5900 5900
+
+service-object "Remotely Anywhere" TCP 2000 2000
+
+service-object "Remotely Possible" TCP 799 799
+
+service-object Quake UDP 27910 27910
+
+service-object cu-seeme UDP 24032 24032
+
+service-object "Edonkey TCP" TCP 4661 4662
+
+service-object "Edonkey UDP" UDP 4665 4665
+
+service-object "WinMX TCP 6699" TCP 6699 6699
+
+service-object "WinMX TCP 7729-7735" TCP 7729 7735
+
+service-object "WinMX UDP 6257" UDP 6257 6257
+
+service-object "Kazaa / FastTrack" TCP 1214 1214
+
+service-object iMesh TCP 4000 5000
+
+service-object "Direct Connect" TCP 411 412
+
+service-object BearShare TCP 6346 6349
+
+service-object ZebTelnet TCP 2601 2620
+
+service-object "Membership Query" IGMP 17 17
+
+service-object "V2 Membership Report" IGMP 22 22
+
+service-object "Leave Group" IGMP 23 23
+
+service-object "V3 Membership Report" IGMP 34 34
+
+service-object "GMS HTTPS" TCP 3003 3003
+
+service-object Radius UDP 1812 1812
+
+service-object GSCTrace TCP 59162 59162
+
+service-object "SSH Management" TCP 22 22
+
+service-object "NT Domain Login Port 1025" TCP 1025 1025
+
+service-object "DCE EndPoint" TCP 135 135
+
+service-object "External Guest Authentication" TCP 4043 4043
+
+service-object "ShoreTel Call Control" UDP 5440 5446
+
+service-object "ShoreTel RTP" UDP 5004 5004
+
+service-object "ShoreTel IP Phone Control 2427" UDP 2427 2427
+
+service-object "ShoreTel IP Phone Control 2727" UDP 2727 2727
+
+service-object "Tivo TCP Beacon" TCP 2190 2190
+
+service-object "Tivo UDP Beacon" UDP 2190 2190
+
+service-object "Tivo TCP Data" TCP 8080 8089
+
+service-object "Tivo TCP Desktop (8101/8102)" TCP 8101 8102
+
+service-object "Tivo TCP Desktop (8200)" TCP 8200 8200
+
+service-object IPcomp custom 108 1 1
+
+service-object AFP TCP 548 548
+
+service-object LehrerOffice TCP 4430 4430
+
+service-object "SonicWALL SSO Authentication Agent" UDP 2258 2258
+
+service-object LDAPS TCP 636 636
+
+service-object "Citrix TCP (Session Reliability)" TCP 2598 2598
+
+service-object "LDAP (UDP)" UDP 389 389
+
+service-object SQL*Net TCP 1521 1521
+
+service-object "Apple Bonjour" UDP 5353 5353
+
+service-object "SMTP (Anti-Spam Inbound Port)" TCP 25 25
+
+service-object SSLVPN TCP 4433 4433
+
+service-object 6over4 custom 41 1 1
+
+service-object "Host Name Server TCP" TCP 42 42
+
+service-object "Host Name Server UDP" UDP 42 42
+
+service-object "NetBios TCP" TCP 137 139
+
+service-object "NetBios UDP" UDP 137 139
+
+service-object "RPC Services" TCP 1025 5000
+
+service-object "RPC Services (IANA)" TCP 49152 65535
+
+service-object DRP TCP 59160 59160
+
+service-object "NetFlow / IPFIX" UDP 2055 2055
+
+service-object "RDP Mapping" TCP 3389 3389
+
+service-object KGPS_HTTPS TCP 20443 20443
+
+service-object TCP_7443 TCP 7443 7443
+
+service-object "RADIUS Accounting" UDP 1813 1813
+
+service-object "SonicpointN Layer3 Management" GRE 41321 41321
+
+service-object BGP TCP 179 179
+
+service-object "Destination Unreachable (IPv6)" custom 58 1 1
+
+service-object "Packet Too Big" custom 58 2 2
+
+service-object "Time Exceeded (IPv6)" custom 58 3 3
+
+service-object "Parameter Problem" custom 58 4 4
+
+service-object "Echo (IPv6)" custom 58 128 128
+
+service-object "Echo Reply (IPv6)" custom 58 129 129
+
+service-object "Router Solicitation (IPv6)" custom 58 133 133
+
+service-object "Router Advertisement (IPv6)" custom 58 134 134
+
+service-object "Neighbor Solicitation" custom 58 135 135
+
+service-object "Neighbor Advertisement" custom 58 136 136
+
+service-object "Redirect (IPv6)" custom 58 137 137
+
+service-object "Ping6 128" custom 58 128 128
+
+service-object "Ping6 129" custom 58 129 129
+
+service-object GRE GRE 1 1
+
+service-object Hello OSPF 1 1
+
+service-object Dbd OSPF 2 2
+
+service-object Lsr OSPF 3 3
+
+service-object Lsu OSPF 4 4
+
+service-object Lsa OSPF 5 5
+
+service-group "P2P Services"
+    service-object "Kazaa / FastTrack"
+    service-object "Direct Connect"
+    service-object BearShare
+    service-group Edonkey
+    service-object iMesh
+    service-group WinMX
+    exit
+
+service-group "AD NetBios Services"
+    service-object SMB
+    service-object "NetBios TCP"
+    service-object "NetBios UDP"
+    exit
+
+service-group "Streaming media"
+    service-object PNA
+    service-group RTSP
+    service-group MMS
+    exit
+
+service-group "AD Directory Services"
+    service-group "Host Name Server"
+    service-group "AD NetBios Services"
+    service-object "LDAP (UDP)"
+    service-object LDAPS
+    service-object NTP
+    service-group Kerberos
+    service-object "RPC Services"
+    service-object "RPC Services (IANA)"
+    service-object LDAP
+    service-group "DNS (Name Service)"
+    service-object "DCE EndPoint"
+    exit
+
+service-group IGMP
+    service-object "Leave Group"
+    service-object "V2 Membership Report"
+    service-object "V3 Membership Report"
+    service-object "Membership Query"
+    exit
+
+service-group "oskfileserver Services"
+    service-object SSH
+    service-object AFP
+    exit
+
+service-group Timbuktu
+    service-object "Timbuktu UDP 1419"
+    service-object "Timbuktu TCP 407"
+    service-object "Timbuktu TCP 1417-1420"
+    service-object "Timbuktu UDP 407"
+    exit
+
+service-group Ping6
+    service-object "Ping6 128"
+    service-object "Ping6 129"
+    exit
+
+service-group "Tivo Services"
+    service-object "Tivo TCP Data"
+    service-object "Tivo TCP Beacon"
+    service-object "Tivo TCP Desktop (8200)"
+    service-object "Tivo TCP Desktop (8101/8102)"
+    service-object "Tivo UDP Beacon"
+    exit
+
+service-group MMS
+    service-object "MMS TCP"
+    service-object "MMS UDP"
+    exit
+
+service-group NetBios
+    service-object SMB
+    service-object "NetBios SSN UDP"
+    service-object "NetBios SSN TCP"
+    service-object "NetBios DGM UDP"
+    service-object "NetBios DGM TCP"
+    service-object "NetBios NS TCP"
+    service-object "NetBios NS UDP"
+    exit
+
+service-group "NT Domain Login"
+    service-object "NT Domain Login Port 1025"
+    service-group Kerberos
+    service-group NetBios
+    service-object LDAP
+    service-object "DCE EndPoint"
+    exit
+
+service-group Citrix
+    service-object "Citrix UDP"
+    service-object "Citrix TCP (Session Reliability)"
+    service-object "Citrix TCP"
+    exit
+
+service-group "Host Name Server"
+    service-object "Host Name Server TCP"
+    service-object "Host Name Server UDP"
+    exit
+
+service-group "PC Anywhere"
+    service-object "PC Anywhere TCP"
+    service-object "PC Anywhere UDP"
+    exit
+
+service-group IKE
+    service-object "IKE (Key Exchange)"
+    service-object "IKE (Traversal)"
+    exit
+
+service-group "IRC (Chat)"
+    service-object "IRC (Chat) 6666-6670"
+    service-object "IRC (Chat) 194"
+    service-object "IRC (Chat) 7000"
+    exit
+
+service-group Syslog
+    service-object "Syslog UDP"
+    service-object "Syslog TCP"
+    exit
+
+service-group OSPF
+    service-object Lsa
+    service-object Dbd
+    service-object Hello
+    service-object Lsu
+    service-object Lsr
+    exit
+
+service-group VNC
+    service-object "VNC 5500"
+    service-object "VNC 5900"
+    service-object "VNC 5800"
+    exit
+
+service-group Edonkey
+    service-object "Edonkey UDP"
+    service-object "Edonkey TCP"
+    exit
+
+service-group ICMPv6
+    service-object "Time Exceeded (IPv6)"
+    service-object "Parameter Problem"
+    service-object "Destination Unreachable (IPv6)"
+    service-object "Echo Reply (IPv6)"
+    service-object "Echo (IPv6)"
+    service-object "Packet Too Big"
+    exit
+
+service-group "Neighbor Discovery"
+    service-object "Router Advertisement (IPv6)"
+    service-object "Router Solicitation (IPv6)"
+    service-object "Neighbor Advertisement"
+    service-object "Neighbor Solicitation"
+    service-object "Redirect (IPv6)"
+    exit
+
+service-group Kerberos
+    service-object "Kerberos UDP"
+    service-object "Kerberos TCP"
+    exit
+
+service-group "oskwebserver Services"
+    service-object HTTP
+    service-object "FTP Data"
+    service-object HTTPS
+    service-object AFP
+    service-object "FTP Control"
+    exit
+
+service-group RTSP
+    service-object "RTSP UDP"
+    service-object "RTSP TCP"
+    exit
+
+service-group Ping
+    service-object "Ping 0"
+    service-object "Ping 8"
+    exit
+
+service-group "DNS (Name Service)"
+    service-object "DNS (Name Service) TCP"
+    service-object "DNS (Name Service) UDP"
+    exit
+
+service-group "Terminal Services"
+    service-object "Terminal Services UDP"
+    service-object "Terminal Services TCP"
+    exit
+
+service-group Pavillon_Server_Services
+    service-object SSLVPN
+    service-object SMB
+    service-group "Terminal Services"
+    service-object PPTP
+    service-object Telnet
+    service-group ICMP
+    service-group Kerberos
+    service-group Ping
+    service-object LDAP
+    service-group NetBios
+    exit
+
+service-group "Yahoo Messenger"
+    service-object "Yahoo Messenger UDP"
+    service-object "Yahoo Messenger TCP"
+    exit
+
+service-group NFS
+    service-object "NFS UDP"
+    service-object "NFS TCP"
+    exit
+
+service-group "AD Server"
+    service-group "AD NetBios Services"
+    service-object "DCE EndPoint"
+    exit
+
+service-group ICMP
+    service-object "Time Exceeded"
+    service-object Redirect
+    service-object "Source Quench"
+    service-object "Router Advertisement"
+    service-object "Router Solicitation"
+    service-object "Destination Unreachable"
+    service-object "Echo Reply"
+    service-object Echo
+    exit
+
+service-group VOIP
+    service-object "H323 Gatekeeper Discovery"
+    service-object "T120 (Whiteboard%2bA43)"
+    service-object "MGCP TCP"
+    service-object Skinny
+    service-object "MGCP UDP"
+    service-object "H323 Gatekeeper RAS"
+    service-object "H323 Call Signaling"
+    service-object SIP
+    exit
+
+service-group "FTP (All)"
+    service-object "FTP Data"
+    service-object "FTP Control"
+    exit
+
+service-group ShoreTel
+    service-object "ShoreTel IP Phone Control 2727"
+    service-object "ShoreTel IP Phone Control 2427"
+    service-object "ShoreTel RTP"
+    service-object "ShoreTel Call Control"
+    exit
+
+service-group WinMX
+    service-object "WinMX TCP 7729-7735"
+    service-object "WinMX TCP 6699"
+    service-object "WinMX UDP 6257"
+    exit
+
+access-rule from LAN to LAN action allow source address any service name SNMP destination address group "All LAN Management IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from LAN to LAN action allow source address any service group Ping destination address group "All LAN Management IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from LAN to LAN action allow source address any service name "SSH Management" destination address group "All LAN Management IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from LAN to LAN action allow source address any service name "HTTPS Management" destination address group "All LAN Management IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from LAN to LAN action allow source address any service name "HTTP Management" destination address group "All LAN Management IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from LAN to LAN action allow source address any service name LehrerOffice destination address name "osk srv01 Private"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from LAN to LAN action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from LAN to WAN action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from LAN to DMZ action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from LAN to VPN action allow source address any service any destination address name "L2TP IP Pool"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from LAN to VPN action allow source address name "WAN RemoteAccess Networks" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from LAN to VPN action allow source address name "WLAN RemoteAccess Networks" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from LAN to SSLVPN action allow source address name "LAN Primary Subnet" service any destination address name sslvpn-network
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from LAN to MULTICAST action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from LAN to WLAN action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from LAN to KGPS action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WAN to LAN action allow source address any service group "oskwebserver Services" destination address name "WAN Primary IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WAN to LAN action deny source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WAN to WAN action allow source address group "Nexan mgmt" service name SNMP destination address group "All WAN Management IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WAN to WAN action allow source address group "Nexan mgmt" service group Ping destination address group "All WAN Management IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WAN to WAN action allow source address group "Nexan mgmt" service name "HTTPS Management" destination address group "All WAN Management IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WAN to WAN action allow source address group "WAN Interface IP" service group IKE destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WAN to WAN action allow source address any service name SSLVPN destination address group "WAN Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WAN to WAN action allow source address any service group IKE destination address group "WAN Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WAN to DMZ action deny source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WAN to MULTICAST action deny source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WAN to WLAN action deny source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WAN to KGPS action deny source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from DMZ to LAN action deny source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from DMZ to WAN action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from DMZ to DMZ action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from DMZ to VPN action allow source address name "WAN RemoteAccess Networks" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from DMZ to VPN action allow source address name "WLAN RemoteAccess Networks" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from DMZ to MULTICAST action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from DMZ to WLAN action deny source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from DMZ to KGPS action deny source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to LAN action allow source address name "L2TP IP Pool" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to LAN action allow source address any service name "HTTP Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to LAN action allow source address any service name "HTTPS Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to LAN action allow source address any service name "SSH Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to LAN action allow source address any service name SNMP destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to LAN action allow source address any service name "SonicpointN Layer3 Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to LAN action allow source address any service name SNMP destination address group "All LAN Management IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to LAN action allow source address any service group Ping destination address group "All LAN Management IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to LAN action allow source address any service any destination address name "WAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to LAN action allow source address any service any destination address name "WLAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WAN action allow source address name "L2TP IP Pool" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WAN action allow source address any service name "HTTP Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WAN action allow source address any service name "HTTPS Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WAN action allow source address any service name "SSH Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WAN action allow source address any service name SNMP destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WAN action allow source address any service name "SonicpointN Layer3 Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WAN action allow source address any service any destination address name "WAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WAN action allow source address any service any destination address name "WLAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to DMZ action allow source address any service name "SonicpointN Layer3 Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to DMZ action allow source address any service name SNMP destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to DMZ action allow source address any service name "SSH Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to DMZ action allow source address any service name "HTTPS Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to DMZ action allow source address any service name "HTTP Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to DMZ action allow source address name "L2TP IP Pool" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to DMZ action allow source address any service any destination address name "WAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to DMZ action allow source address any service any destination address name "WLAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to VPN action allow source address any service name "HTTP Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to VPN action allow source address any service name "HTTPS Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to VPN action allow source address any service name "SSH Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to VPN action allow source address any service name SNMP destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to VPN action allow source address any service name "SonicpointN Layer3 Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to VPN action allow source address any service any destination address name "WAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to VPN action allow source address name "WAN RemoteAccess Networks" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to VPN action allow source address any service any destination address name "WLAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to VPN action allow source address name "WLAN RemoteAccess Networks" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to SSLVPN action allow source address any service name "HTTP Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to SSLVPN action allow source address any service name "HTTPS Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to SSLVPN action allow source address any service name "SSH Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to SSLVPN action allow source address any service name SNMP destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to SSLVPN action allow source address any service name "SonicpointN Layer3 Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to SSLVPN action allow source address any service any destination address name "WLAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to SSLVPN action allow source address any service any destination address name "WAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to MULTICAST action allow source address any service name "SonicpointN Layer3 Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to MULTICAST action allow source address any service name SNMP destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to MULTICAST action allow source address any service name "SSH Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to MULTICAST action allow source address any service name "HTTPS Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to MULTICAST action allow source address any service name "HTTP Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to MULTICAST action allow source address name "L2TP IP Pool" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to MULTICAST action allow source address any service any destination address name "WAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to MULTICAST action allow source address any service any destination address name "WLAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WLAN action allow source address any service name "SonicpointN Layer3 Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WLAN action allow source address any service name SNMP destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WLAN action allow source address any service name "SSH Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WLAN action allow source address any service name "HTTPS Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WLAN action allow source address any service name "HTTP Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WLAN action allow source address name "L2TP IP Pool" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WLAN action allow source address any service any destination address name "WAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to WLAN action allow source address any service any destination address name "WLAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to KGPS action allow source address any service name "HTTP Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to KGPS action allow source address any service name "HTTPS Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to KGPS action allow source address any service name "SSH Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to KGPS action allow source address any service name SNMP destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to KGPS action allow source address any service name "SonicpointN Layer3 Management" destination address group "All Interface IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to KGPS action allow source address name "KGPS Vordere Gasse Subnet" service any destination address group "KGPS Subnets"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to KGPS action allow source address any service any destination address name "WLAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from VPN to KGPS action allow source address any service any destination address name "WAN RemoteAccess Networks"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from SSLVPN to LAN action allow source address name sslvpn-network service any destination address name "LAN Primary Subnet"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from SSLVPN to VPN action allow source address name "WLAN RemoteAccess Networks" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from SSLVPN to VPN action allow source address name "WAN RemoteAccess Networks" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WLAN to LAN action deny source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WLAN to WAN action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WLAN to DMZ action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WLAN to VPN action allow source address name "WAN RemoteAccess Networks" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WLAN to VPN action allow source address name "WLAN RemoteAccess Networks" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WLAN to MULTICAST action deny source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from WLAN to KGPS action deny source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from KGPS to WAN action allow source address name KGPS_InetOnly service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from KGPS to WAN action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from KGPS to DMZ action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from KGPS to VPN action allow source address group "KGPS Subnets" service any destination address name "KGPS Vordere Gasse Subnet"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from KGPS to VPN action allow source address name "WLAN RemoteAccess Networks" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from KGPS to VPN action allow source address name "WAN RemoteAccess Networks" service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from KGPS to MULTICAST action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from KGPS to WLAN action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from KGPS to KGPS action allow source address any service name "HTTP Management" destination address group "All X2 Management IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from KGPS to KGPS action allow source address any service group Ping destination address group "All X2 Management IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from KGPS to KGPS action allow source address any service name "SSH Management" destination address group "All X2 Management IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from KGPS to KGPS action allow source address any service name "HTTPS Management" destination address group "All X2 Management IP"
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+access-rule from KGPS to KGPS action allow source address any service any destination address any
+    schedule always-on
+    users included all
+    users excluded none
+    no comment
+    logging
+    max-connections 100
+    tcp timeout 15
+    udp timeout 30
+    no connection-limit source
+    no connection-limit destination
+    quality-of-service dscp preserve
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination name "LAN Primary IP" translated-destination original service name SNMP translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination name "WAN Primary IP" translated-destination original service name SNMP translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination name "WAN Primary IP" translated-destination original service group Ping translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination name "X2 IP" translated-destination original service name "HTTP Management" translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination name "X2 IP" translated-destination original service group Ping translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination name "X2 IP" translated-destination original service name "SSH Management" translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination name "X2 IP" translated-destination original service name "HTTPS Management" translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source group "All Interface IP" translated-source name "WAN Primary IP" destination any translated-destination original service any translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination name "WAN Primary IP" translated-destination original service name "HTTPS Management" translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source group "WAN Interface IP" translated-source original destination any translated-destination original service group IKE translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination group "WAN Interface IP" translated-destination original service group IKE translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination name "LAN Primary IP" translated-destination original service group Ping translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination name "LAN Primary IP" translated-destination original service name "SSH Management" translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination name "LAN Primary IP" translated-destination original service name "HTTPS Management" translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination name "LAN Primary IP" translated-destination original service name "HTTP Management" translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination name "WAN Primary IP" translated-destination name "KGPS Firewall" service name KGPS_HTTPS translated-service name TCP_7443
+    no enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source group "Firewalled Subnets" translated-source name "WAN Primary IP" destination name "WAN Primary IP" translated-destination name "osk srv01-ssh Private" service group "oskfileserver Services" translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source group "Firewalled Subnets" translated-source name "WAN Primary IP" destination name "WAN Primary IP" translated-destination name "oskwebserver Private" service group "oskwebserver Services" translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination group "WAN Interface IP" translated-destination original service name SSLVPN translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination name "WAN Primary IP" translated-destination name "osk srv01-ssh Private" service group "oskfileserver Services" translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source original destination name "WAN Primary IP" translated-destination name "oskwebserver Private" service group "oskwebserver Services" translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source name "WAN Primary IP" destination any translated-destination original service any translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source any translated-source name "WAN Primary IP" destination any translated-destination original service any translated-service original
+    enable
+    no comment
+    exit
+
+nat-policy inbound X0 outbound X1 source name "L2TP IP Pool" translated-source name "WAN Primary IP" destination any translated-destination original service any translated-service original
+    enable
+    no comment
+    exit
+
+routing
+    policy interface  metric 1 source any destination name KGPS_InetOnly service any gateway name "KGPS Firewall"
+        no enable
+        no comment
+        disable-on-interface-down
+        no vpn-precedence
+        no probe
+        exit
+    exit
+
